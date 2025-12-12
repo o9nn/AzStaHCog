@@ -68,13 +68,17 @@ Start-Sleep -Seconds 1
 
 Write-Host "`n⚙️  Loading cognitive architecture configuration..." -ForegroundColor Yellow
 
-$configPath = Join-Path $PSScriptRoot "AionCognitiveArchitecture-Config.psd1"
+# Get the repository root directory
+$repoRoot = Split-Path $PSScriptRoot -Parent
+$configPath = Join-Path $repoRoot "Sandbox\AionCognitiveArchitecture-Config.psd1"
+
 if (Test-Path $configPath) {
     $config = Import-PowerShellDataFile -Path $configPath
     Write-Host "✅ Configuration loaded!" -ForegroundColor Green
     Write-Host "   Cognitive topology: $($config.CognitiveTopology.VirtualizationLayer.ClusterNodes.Count) nodes" -ForegroundColor Gray
 } else {
-    Write-Warning "Configuration file not found, using defaults"
+    Write-Warning "Configuration file not found at: $configPath"
+    Write-Host "   Using defaults..." -ForegroundColor Gray
     $config = $null
 }
 
