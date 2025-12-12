@@ -189,7 +189,7 @@
         
         # Storage Configuration
         ReflectionStorage = @{
-            LogPath = "C:\AzHCI_Sandbox\Logs\EchoReflections"
+            LogPath = ".\Logs\EchoReflections" # Relative to sandbox directory
             RetentionDays = 90
             ExportFormat = "JSON"
             AzureMonitorIntegration = $false

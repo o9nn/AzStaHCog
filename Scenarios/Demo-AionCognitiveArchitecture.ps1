@@ -70,7 +70,7 @@ Write-Host "`n⚙️  Loading cognitive architecture configuration..." -Foregrou
 
 # Get the repository root directory
 $repoRoot = Split-Path $PSScriptRoot -Parent
-$configPath = Join-Path $repoRoot "Sandbox\AionCognitiveArchitecture-Config.psd1"
+$configPath = Join-Path $repoRoot (Join-Path "Sandbox" "AionCognitiveArchitecture-Config.psd1")
 
 if (Test-Path $configPath) {
     $config = Import-PowerShellDataFile -Path $configPath

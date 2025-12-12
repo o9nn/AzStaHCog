@@ -6,7 +6,8 @@ Write-Host "`n=== Aion Cognitive Architecture Module Test ===" -ForegroundColor 
 # Test 1: Module Import
 Write-Host "`nTest 1: Module Import..." -ForegroundColor Yellow
 try {
-    Import-Module ./Modules/AionCognitiveArchitecture -Force
+    $modulePath = Join-Path (Split-Path $PSScriptRoot -Parent) (Join-Path "AionCognitiveArchitecture" "")
+    Import-Module $modulePath -Force
     Write-Host "✓ Module imported successfully" -ForegroundColor Green
 } catch {
     Write-Host "✗ Module import failed: $_" -ForegroundColor Red
@@ -59,7 +60,9 @@ if ($ontoMetrics.CurrentStage -eq "Uninitialized") {
 # Test 7: Configuration Loading
 Write-Host "`nTest 7: Load Configuration..." -ForegroundColor Yellow
 try {
-    $config = Import-PowerShellDataFile -Path ./Sandbox/AionCognitiveArchitecture-Config.psd1
+    $repoRoot = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
+    $configPath = Join-Path $repoRoot (Join-Path "Sandbox" "AionCognitiveArchitecture-Config.psd1")
+    $config = Import-PowerShellDataFile -Path $configPath
     Write-Host "✓ Configuration loaded successfully" -ForegroundColor Green
     Write-Host "  Cognitive Topology Layers: $($config.CognitiveTopology.Keys.Count)" -ForegroundColor Gray
     Write-Host "  Entelechy Targets: $($config.EntelechySystem.ActualizationTargets.Count)" -ForegroundColor Gray
